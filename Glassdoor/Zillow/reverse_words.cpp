@@ -17,14 +17,24 @@ void Trim(std::string &input){
     
     int i = 0, j = input.size()-1;
     
-    while(true){
+    // move our index pointers 'i' and 'j' to
+    // the points where we don't have an empty string
+    // by converging 'i' and 'j' inward
+    //
+    while(true)
+    {
     	if(input[i] == ' ') i++;
     	if(input[j] == ' ') j--;
 
     	if(input[i] != ' ' && input[j] != ' ') break;
     }
-        
-    while(i <= j){
+    
+    // Once we have trimmed the whitespace from both
+    // sides of the string, let's take the core string
+    // since we have the starting (i.e 'i') and end point (i.e. 'j')
+    //   
+    while(i <= j)
+    {
       t += input[i];
       i++;
     }
@@ -42,12 +52,15 @@ void reverseSentence(std::string &input){
   
   Trim(input);
   
-  while(i < j){
+  while(i < j)
+  {
     swap(&input[i++], &input[j--]);
   }
 }
 
-
+// Reverses a given string based on the starting and ending
+// index positions
+//
 void reverseWord(int start, int end, std::string &input){
     
     int i = start;
@@ -58,22 +71,34 @@ void reverseWord(int start, int end, std::string &input){
     }
 }
 
+// Reverses the words in a given string by 
+// utilizing the reverseWord helper function
+//
 void reverseWords(std::string &input){
   
   int start = 0, end = 0;
 
-  for(int i = 0; i <= input.size(); ++i){
-      if(input[i] == '\0'){
+  for(int i = 0; i <= input.size(); ++i)
+  {
+
+  	// case where we hit the end of the string
+  	// 
+    if(input[i] == '\0')
+    {
         reverseWord(start, end-1, input);
-      }
+    }
       
-      else if(input[i] == ' '){
-      	// we have hit a space so we guess we've ended
-      	// with a word
-        reverseWord(start, end-1, input);
-        start = end+1;
-      }
-      ++end;
+    else if(input[i] == ' ')
+    {
+
+    	// we have hit a space so we guess we've ended
+      	// with a word, so we adjust the new 'start' position
+      	// to be the next character
+      	//
+    	reverseWord(start, end-1, input);
+        start = end + 1;
+    }
+    ++end;
   }
 }
 
